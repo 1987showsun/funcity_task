@@ -1,0 +1,90 @@
+:root{
+  --button-bg-edit: #d9f7cf;
+  --button-bg-view: #f7b959;
+  --button-bg-delete: #f95a51;
+  --button-bg-submit: #f7b95a;
+  --button-bg-cancel: #fde9cd;
+  --link-color: #f7b959;
+  --status-delete-color: #f95a51;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+body, html, #root{
+  width: 100%;
+  height: 100%;
+  background-color: #d9d9d9;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root{
+  overflow: scroll;
+}
+
+.wrap-center{
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 0px 20px;
+}
+
+.common-pagination-style{
+  >li{
+    border: none !important;
+    background-color: #fff !important;
+    a{
+      color: #000 !important;
+    }
+    &.ant-pagination-item-active{
+      background-color: #f7b959 !important;
+    }
+  }
+}
+
+.button{
+  border: none !important;
+  border-radius: 100px;
+  color: #000 !important;
+  &.edit{
+    background: var(--button-bg-edit);
+    &:hover{
+        outline: 1px solid var(--button-bg-edit);
+    }
+  }
+  &.view{
+      background: var(--button-bg-view);
+      &:hover{
+          outline: 1px solid var(--button-bg-view);
+      }
+  }
+  &.delete{
+      background: var(--button-bg-delete);
+      &:hover{
+          outline: 1px solid var(--button-bg-delete);
+      }
+  }
+  &.cancel{
+    background-color: var(--button-bg-cancel);
+    &:hover{
+      outline: 1px solid var(--button-bg-cancel);
+  }
+  }
+  &.submit{
+    background-color: var(--button-bg-submit);
+    &:hover{
+      outline: 1px solid var(--button-bg-submit);
+    }
+  }
+}

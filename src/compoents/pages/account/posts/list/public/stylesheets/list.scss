@@ -1,0 +1,49 @@
+.post-wrap{
+    width: 100%;
+    display: flex;
+    container: postlist / inline-size;
+    .post-list{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+@container postlist (min-width: 1280px) {
+    .post-list{
+        gap: 25px 25px;
+        .post-item{
+            width: calc((100% / 4) - 19px);
+        }
+    }
+}
+
+@container postlist (max-width: 1280px) and (min-width: 800px) {
+    .post-list{
+        gap: 20px 20px;
+        .post-item{
+            width: calc((100% / 3) - 13.4px);
+            padding: 25px;
+        }
+    }
+}
+
+@container postlist (max-width: 800px) and (min-width: 480px) {
+    .post-list{
+        gap: 15px 15px;
+        .post-item{
+            width: calc((100% / 2) - 7.5px);
+            padding: 20px;
+        }
+    }
+}
+
+@container postlist (max-width: 480px) {
+    .post-list{
+        gap: 10px 0px;
+        .post-item{
+            width: 100%;
+            padding: 15px;
+        }
+    }
+}

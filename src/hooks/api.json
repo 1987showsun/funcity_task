@@ -1,0 +1,18 @@
+{
+    "auth": {
+        "signin"     : "api/account/login",
+        "register"   : "api/account/register"
+    },
+    "account": {
+        "profile"    : "api/accounts"
+    },
+    "post": {
+        "adminList"  : "api/posts",
+        "myPostList" : "api/posts/mypost",
+        "loggedList" : "api/posts/mypost",
+        "create"     : "api/posts/create",
+        "edit"       : "api/posts/edit/",
+        "delete"     : "api/posts/delete/",
+        "view"       : "api/posts/view/"
+    }
+}

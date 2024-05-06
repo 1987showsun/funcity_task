@@ -1,17 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { Provider, useSelector } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
+// Redux store setup
+import createStore from './redux/store';
+
+// Router
+import routes from './router';
+
+// Stylesheets
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      cacheTime : 500000,
+      refetchOnWindowFocus: false
+    }
+  }
+});
+
+const Router = () => {
+  const { token: AUTH_TOKEN } = useSelector(state => state.auth);
+
+  // 刪除 caech;
+  useEffect(() => {
+    if(!AUTH_TOKEN){
+      queryClient.removeQueries();
+    }
+  }, [AUTH_TOKEN]);
+
+  return useRoutes(
+    routes({
+      token : AUTH_TOKEN
+    })
+  );
+}
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <Provider store={createStore}>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>
+  </QueryClientProvider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

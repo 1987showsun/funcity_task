@@ -1,0 +1,22 @@
+#account-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#account-container{
+    width: 100%;
+    flex-grow: 1;
+    overflow: auto;
+    padding: 10px 0px;
+    .wrap-center{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+    .account-page-title{
+        text-align: center;
+        font-size: 1.6em;
+    }
+}
