@@ -1,15 +1,17 @@
+import React, { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 
 // Pages
-import App from '../App';
-import Auth from '../pages/auth';
-import SignIn from '../pages/auth/signin';
-import SignUp from '../pages/auth/signup';
+const App = lazy(() => import('../App'));
 
-import Account from '../pages/account';
-import Post from '../pages/account/post';
-import PostList from '../pages/account/post/list';
-import PostDetails from '../pages/account/post/details';
+const Auth = lazy(() => import('../pages/auth'));
+const SignIn = lazy(() => import('../pages/auth/signin'));
+const SignUp = lazy(() => import('../pages/auth/signup'));
+
+const Account = lazy(() => import('../pages/account'));
+const Post = lazy(() => import('../pages/account/post'));
+const PostList = lazy(() => import('../pages/account/post/list'));
+const PostDetails = lazy(() => import('../pages/account/post/details'));
 
 const Index = ({ token }) => [{
     path    : '/*',
