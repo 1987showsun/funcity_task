@@ -1,5 +1,5 @@
 import {memo, useState, useEffect } from 'react';
-import { Pagination, Button } from 'antd';
+import { ConfigProvider, Pagination, Button, Spin } from 'antd';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from 'react-redux';
@@ -87,15 +87,37 @@ const Posts = memo(({}) => {
             }
         >
             {
-                isSuccess &&
-                    <List
-                        data         = {post}
-                        handleAction = {handleAction}
-                    />
-            }
-            {
-                postListLoading &&
-                    <Note>Loading ...</Note>
+                !postListLoading?(
+                    isSuccess?(
+                        <List
+                            data         = {post}
+                            handleAction = {handleAction}
+                        />
+                    ):(
+                        null
+                    )
+                ):(
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                colorPrimary: "#f7b959",
+                                colorBgContainer: "transparent"
+                            },
+                        }}
+                    >  
+                        <Spin 
+                            tip      = "Loading" 
+                            size     = "large"
+                            spinning = {postListLoading}
+                        >
+                            <div 
+                                style={{
+                                    padding: 50,
+                                }} 
+                            />
+                        </Spin>
+                    </ConfigProvider>
+                )
             }
             {
                 (isSuccess && post.pagination.totalPosts!==0) &&
