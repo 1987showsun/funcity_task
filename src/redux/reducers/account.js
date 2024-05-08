@@ -1,6 +1,7 @@
 const Account = (
     state = {
-        accounts: []
+        accounts: [],
+        postTags: [ "history","american", "crime","science", "fiction", "fantasy", "space", "adventure", "nature", "environment", "philosophy", "psychology", "health"]
     },
     action
 ) => {
@@ -13,6 +14,13 @@ const Account = (
                 ...state,
                 accounts: payload
             }
+            break;
+
+        case "SET_POST_TAGS":
+            state = {
+                ...state,
+                postTags: payload
+            };
             break;
 
         default:

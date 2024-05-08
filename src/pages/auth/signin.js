@@ -1,5 +1,5 @@
-import { UserOutlined, EyeTwoTone, LockOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { Form, Input, Button } from 'antd';
+import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
+import { Form, Input, Button, notification } from 'antd';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -13,13 +13,22 @@ const SignIn = () => {
 
     const [form] = Form.useForm();
     const dispatch = useDispatch();
+    const [api, contextHolder] = notification.useNotification();
 
     const handleSubmit = async(values) => {
         const res = await dispatch(
             signinUserAction({
                 data: form.getFieldValue()
             })
-        )
+        );
+
+        if( res.status==401 ){
+            api['warning']({
+                message     : 'warning',
+                description : res.data.error,
+                placement   : 'topRight',
+            });
+        }
     }
 
     return(
@@ -89,6 +98,7 @@ const SignIn = () => {
             >
                 <Link to="/sign/up"  style={{ color: 'var(--link-color)' }} replace={true}>Create an account</Link>
             </Form.Item>
+            {contextHolder}
         </Form>
     );
 }

@@ -11,24 +11,54 @@ export const getPostListAction = (props) => {
     return async(dispatch) => {
         try{
 
-            const token = localStorage.getItem('AUTH_TOKEN');
-            const { role } = jwtDecode(token);
+            const callApi = async() => {
 
-            const res = await AXIOS({
-                method : role!=="user"? 'get':'post',
-                path   : role!=="user"? API.post.adminList:API.post.myPostList,
-                params : params
-            });
+                const token = localStorage.getItem('AUTH_TOKEN');
+                const { role } = jwtDecode(token);
 
-            return {
-                list       : res.data.data,
-                pagination : {
-                    page      : res.data.page,
-                    limit     : res.data.limit,
-                    totalPages: res.data.totalPages,
-                    totalPosts: res.data.totalPosts,
+                if( role!=="user" ){
+                    const adminPostRes = await AXIOS({
+                        method : 'get',
+                        path   : API.post.adminList,
+                        params : params
+                    });
+                    const myPostRes    = await AXIOS({
+                        method : 'post',
+                        path   : API.post.myPostList,
+                        params : params
+                    });
+                    return {
+                        list: adminPostRes.data.data,
+                        pagination: {
+                            page        : adminPostRes.data.page,
+                            limit       : adminPostRes.data.limit,
+                            totalPages  : adminPostRes.data.totalPages,
+                            totalPosts  : adminPostRes.data.totalPosts,
+                            totalMyPosts: myPostRes.data.totalPosts
+                        }
+                    }
+                }else{
+                    const myPostRes = await AXIOS({
+                        method : role!=="user"? 'get':'post',
+                        path   : role!=="user"? API.post.adminList:API.post.myPostList,
+                        params : params
+                    });
+
+                    return {
+                        list: myPostRes.data.data,
+                        pagination: {
+                            page        : myPostRes.data.page,
+                            limit       : myPostRes.data.limit,
+                            totalPages  : myPostRes.data.totalPages,
+                            totalPosts  : myPostRes.data.totalPosts,
+                            totalMyPosts: myPostRes.data.totalPosts
+                        }
+                    }
                 }
-            };
+            }
+
+            return await callApi();
+
         }catch(err){
 
         }

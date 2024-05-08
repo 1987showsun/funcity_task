@@ -129,7 +129,7 @@ const SignIn = () => {
                 >
                     <Select
                         size        = "large" 
-                        options     = {['user'].map((item) => ({
+                        options     = {['admin','user'].map((item) => ({
                             value: item,
                             label: item,
                         }))}

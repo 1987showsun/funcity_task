@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { Button, Modal, Form, Select, Input, Space, notification } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { addPostAction, editPostAction, deletePostAction } from '../../../../../redux/actions/post';
@@ -101,6 +101,9 @@ const PostForm = ({
     closeModal,
     handleSubmit,
 }) => {
+
+    const { postTags=[] } = useSelector(state => state.account);
+
     return(
         <Form
             form          = {form}
@@ -152,9 +155,9 @@ const PostForm = ({
                 ]}
             >
                 <Select 
+                    mode         = "multiple"
                     size         = "large"
-                    mode         = "tags"
-                    open         = {false}
+                    options      = {postTags.map(item => ({ label: item, value: item }))}
                 />
             </Form.Item>
             <FormFooter 

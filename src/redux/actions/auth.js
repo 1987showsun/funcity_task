@@ -46,8 +46,9 @@ export const signinUserAction = (props) => {
                     token: res.data.token
                 }
             });
+            return res
         }catch(err){
-
+            return err.response;
         }
     }
 }

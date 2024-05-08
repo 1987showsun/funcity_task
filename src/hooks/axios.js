@@ -15,7 +15,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    if( error.response.status===401 ){
+    if( error.response.status===403 ){
         localStorage.clear();
         window.location.href = '/sign';
     }
